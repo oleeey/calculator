@@ -1,0 +1,12 @@
+#calcNums {
+    display: grid;
+    grid-template-columns: 100px 100px 100px;
+    grid-template-rows: 80px 80px 80px;
+}
+
+.nums {
+    border: 1px solid black;
+    text-align: center;
+    margin: 0;
+
+}
