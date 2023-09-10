@@ -1,12 +1,31 @@
 $(document).ready(function() {
-    let nums = [7,8,9,4,5,6,1,2,3]
-    for (i in nums) {
-        $("#calcNums").append(`<p class="nums">${nums[i]}</p>`)
-    }
+    let input = [];
+    let output = 0;
 
-    $(".nums").hover(function() {
-        $(this).addClass("hover");
-    }, function() {
-        $(this).removeClass("hover");
+    $(".buttons").click(function(event) {
+        if (event.target.className.includes("nums")) {
+            input.push(Number(event.target.value));
+        }
+        else {
+            input.push(event.target.value);
+        }
+        
+    })
+
+    $("#equals").click(function() {
+        let num = 0;
+        let op = "";
+        for (let i in input) {
+            if (typeof(input[i]) == "number") {
+                num = input[i];
+            }
+            else {
+                op = input[i]
+            }
+        
+        }
+        console.log(num, op)
+
+        $("#display").text(output);
     })
 });
