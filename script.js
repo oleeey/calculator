@@ -12,11 +12,10 @@ $(document).ready(function() {
     })
 
     $("#equals").click(function() {
-        sortInput(input);
+        input = sortInput(input);
         
-       
         let op = "";
-        //console.log(input)
+        console.log(input)
         for (let i in input) {
             //console.log(input[i])
             if (typeof(input[i]) == "number") {
@@ -49,19 +48,37 @@ $(document).ready(function() {
 
 });
 
+function combineNums(list) {
+    for (let i = 0; i < list.length; i++) {
+        if (typeof(list[i]) == typeof(list[i + 1]) && typeof(list[i] == "number")) {
+            list[i] = Number(String(list[i]) + String(list[i + 1]));
+            list[i + 1] = "";
+            list = list.filter(x => x != "");
+        }
+    }
+    return list;
+}
+
 function sortInput(list) {
-    for (let i in list) {
-        if (list[i] == list[i - 1]) {
-            list[i] = Number(String(list[i]) + String(list[i - 1]));
-            delete(list[i - 1]);
-        }
-    }
     console.log(list);
-    for (let i in list) {
-        if (list[i] == ".") {
-            console.log(list[i - 1], list[i], list[i + 1])
-            list[i - 1] += list[i + 1];
+
+    list = combineNums(list);
+    console.log(list);
+    for (let i = 0; i < list.length; i++) {
+        if (typeof(list[i]) == typeof(list[i + 1]) && typeof(list[i] == "number")) {
+            list = sortInput(list);
         }
     }
-    console.log(list)
+
+    //console.log(list);
+    for (let i = 0; i < list.length; i++) {
+        if (list[i] == ".") {
+            //console.log(list[i - 1], list[i], list[i + 1])
+            list[i - 1] += (list[i + 1] / (10 ** String(list[i + 1]).length));
+            list[i] = "";
+            list[i + 1] = "";
+            list = list.filter(x => x != "");
+        }
+    }
+    return list;
 }
