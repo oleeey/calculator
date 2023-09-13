@@ -71,6 +71,7 @@ function combineOps(list) {
 }
 
 function combineNums(list) {
+    /*
     for (let i = 0; i < list.length; i++) { 
         if (typeof(list[i]) == typeof(list[i + 1]) && typeof(list[i] == "number")) {
             list[i] = Number(String(list[i]) + String(list[i + 1]));
@@ -78,7 +79,19 @@ function combineNums(list) {
             list = list.filter(x => x != "");
         }
     }
-    return list;
+    */
+    for (let i = 0; i < list.length; i++) {
+        if (typeof(list[i]) == typeof(list[i + 1]) && typeof(list[i] == "number")) {
+            list[i] = Number(String(list[i]) + String(list[i + 1]));
+            list[i + 1] = "";
+            list = list.filter(x => x != "");
+            combineNums(list);
+        }
+        else {
+            console.log("list:",list)
+            return list;
+        }
+    }
 }
 
 function sortInput(list) {
@@ -88,15 +101,19 @@ function sortInput(list) {
     list = combineOps(list);
     list = combineNums(list);
     console.log(list);
+    /*
     for (let i = 0; i < list.length; i++) {
         if (ops.includes(list[i]) && ops.includes(list[i + 1])) {
             console.log("yes")
             list = combineOps(list);
         }
+        
         if (typeof(list[i]) == typeof(list[i + 1]) && typeof(list[i] == "number")) {
             list = sortInput(list);
         }
+        
     }
+    */
 
     //console.log(list);
     for (let i = 0; i < list.length; i++) {
