@@ -9,6 +9,8 @@ $(document).ready(function() {
         else {
             input.push(event.target.value);
         }
+
+        $("#display1").text(inputCurrent(input));
     })
 
     $("#equals").click(function() {
@@ -37,19 +39,39 @@ $(document).ready(function() {
         }
 
         $("#display").text(output);
+        $("#display1").text(inputCurrent(input) + "=" + output);
     })
 
     $("#clear").click(function() {
         input = [];
         output = 0;
         $("#display").text(output);
+        $("#display1").text("0");
     })
 
 
 });
 
-function combineNums(list) {
+function inputCurrent(input) {
+    let inputC = "";
+    input.forEach(x => inputC += x);
+    return inputC;
+}
+
+function combineOps(list) {
+    let ops = ["+", "-", "x", "/"];
     for (let i = 0; i < list.length; i++) {
+        if (ops.includes(list[i]) && ops.includes(list[i + 1])) {
+            list[i] = "";
+            list = list.filter(x => x != "");
+            console.log(list);
+        }
+    }   
+    return list;
+}
+
+function combineNums(list) {
+    for (let i = 0; i < list.length; i++) { 
         if (typeof(list[i]) == typeof(list[i + 1]) && typeof(list[i] == "number")) {
             list[i] = Number(String(list[i]) + String(list[i + 1]));
             list[i + 1] = "";
@@ -60,11 +82,17 @@ function combineNums(list) {
 }
 
 function sortInput(list) {
+    let ops = ["+", "-", "x", "/"];
     console.log(list);
 
+    list = combineOps(list);
     list = combineNums(list);
     console.log(list);
     for (let i = 0; i < list.length; i++) {
+        if (ops.includes(list[i]) && ops.includes(list[i + 1])) {
+            console.log("yes")
+            list = combineOps(list);
+        }
         if (typeof(list[i]) == typeof(list[i + 1]) && typeof(list[i] == "number")) {
             list = sortInput(list);
         }

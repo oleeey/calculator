@@ -38,6 +38,14 @@ html, body {
 #display {
     position: relative;
     left: 90%;
+    font-size: 1.5rem;
+}
+
+#display1 {
+    position: relative;
+    left: 90%;
+    font-size: 0.9rem;
+    color: orange;
 }
 
 .hover {
