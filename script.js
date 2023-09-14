@@ -62,36 +62,25 @@ function combineOps(list) {
     let ops = ["+", "-", "x", "/"];
     for (let i = 0; i < list.length; i++) {
         if (ops.includes(list[i]) && ops.includes(list[i + 1])) {
-            list[i] = "";
-            list = list.filter(x => x != "");
-            console.log(list);
+            if (list[i] == "-") {
+                
+            }
         }
     }   
     return list;
 }
 
 function combineNums(list) {
-    /*
-    for (let i = 0; i < list.length; i++) { 
-        if (typeof(list[i]) == typeof(list[i + 1]) && typeof(list[i] == "number")) {
-            list[i] = Number(String(list[i]) + String(list[i + 1]));
-            list[i + 1] = "";
-            list = list.filter(x => x != "");
-        }
-    }
-    */
     for (let i = 0; i < list.length; i++) {
-        if (typeof(list[i]) == typeof(list[i + 1]) && typeof(list[i] == "number")) {
+        if (typeof list[i] == "number" && typeof list[i + 1] == "number") {
             list[i] = Number(String(list[i]) + String(list[i + 1]));
             list[i + 1] = "";
             list = list.filter(x => x != "");
-            combineNums(list);
-        }
-        else {
-            console.log("list:",list)
-            return list;
+            return combineNums(list);
         }
     }
+    list = list.filter(x => x != "");
+    return list;
 }
 
 function sortInput(list) {
@@ -127,3 +116,5 @@ function sortInput(list) {
     }
     return list;
 }
+
+
