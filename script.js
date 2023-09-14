@@ -17,9 +17,7 @@ $(document).ready(function() {
         input = sortInput(input);
         
         let op = "";
-        console.log(input)
         for (let i in input) {
-            //console.log(input[i])
             if (typeof(input[i]) == "number") {
                 if (op) {
                     if (op == "+") {output += input[i];}
@@ -60,45 +58,39 @@ function inputCurrent(input) {
 
 function combineOps(list) {
     let ops = ["+", "-", "x", "/"];
+    let comb = "";
     for (let i = 0; i < list.length; i++) {
         if (ops.includes(list[i]) && ops.includes(list[i + 1])) {
-            list[i] = "";
-            list = list.filter(x => x != "");
-            console.log(list);
-        }
-    }   
+            let ops2 = list[i] + list[i + 1];
+            if (ops2.includes("-")) {
+                console.log();
+            }
+            
+            }
+        }  
     return list;
 }
 
 function combineNums(list) {
-    for (let i = 0; i < list.length; i++) { 
-        if (typeof(list[i]) == typeof(list[i + 1]) && typeof(list[i] == "number")) {
+    for (let i = 0; i < list.length; i++) {
+        if (typeof list[i] == "number" && typeof list[i + 1] == "number") {
             list[i] = Number(String(list[i]) + String(list[i + 1]));
             list[i + 1] = "";
             list = list.filter(x => x != "");
+            return combineNums(list);
         }
     }
+    list = list.filter(x => x != "");
     return list;
 }
 
 function sortInput(list) {
-    let ops = ["+", "-", "x", "/"];
     console.log(list);
 
     list = combineOps(list);
     list = combineNums(list);
     console.log(list);
-    for (let i = 0; i < list.length; i++) {
-        if (ops.includes(list[i]) && ops.includes(list[i + 1])) {
-            console.log("yes")
-            list = combineOps(list);
-        }
-        if (typeof(list[i]) == typeof(list[i + 1]) && typeof(list[i] == "number")) {
-            list = sortInput(list);
-        }
-    }
-
-    //console.log(list);
+  
     for (let i = 0; i < list.length; i++) {
         if (list[i] == ".") {
             //console.log(list[i - 1], list[i], list[i + 1])
@@ -110,3 +102,5 @@ function sortInput(list) {
     }
     return list;
 }
+
+
