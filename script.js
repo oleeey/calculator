@@ -23,7 +23,7 @@ $(document).ready(function() {
                     if (op == "+") {output += input[i];}
                     if (op == "-") {output -= input[i];}
                     if (op == "x") {output *= input[i];}
-                    if (op == "/") {input[i] > 0 ? output /= input[i] : output = 0;}
+                    if (op == "/") {output /= input[i]}
                     op = "";
                 }
                 else {
@@ -57,15 +57,45 @@ function inputCurrent(input) {
 }
 
 function combineOps(list) {
-    let ops = ["+", "-", "x", "/"];
-    let comb = "";
+    let opsList = ["+", "-", "x", "/"];
     for (let i = 0; i < list.length; i++) {
-        if (ops.includes(list[i]) && ops.includes(list[i + 1])) {
-            let ops2 = list[i] + list[i + 1];
-            if (ops2.includes("-")) {
-                console.log();
+        if (opsList.includes(list[i]) && opsList.includes(list[i + 1])) {
+            let ops = list[i] + list[i + 1];          
+            let comb = "";
+            if (ops.includes("-")) {
+                switch (ops) {
+                    case "+-":
+                        comb = "-";
+                        break;
+                    case "-+":
+                        comb = "-";
+                        break;
+                    case "--":
+                        comb = "+";
+                        break;
+                    case "-x":
+                        comb = "x";
+                        break;
+                    case "x-":
+                        comb = "x";
+                        list[i + 2] *= -1;
+                        break;
+                    case "-/":
+                        comb = "/";
+                        break;
+                    case "/-":
+                        comb = "/";
+                        list[i + 2] *= -1;
+                        break;
+                }
+                list[i] = comb;
+                list[i + 1] = "";               
             }
-            
+            else {
+             list[i] = "";
+            }
+                list = list.filter(x => x != "");
+                return combineOps(list);
             }
         }  
     return list;
@@ -86,7 +116,6 @@ function combineNums(list) {
 
 function sortInput(list) {
     console.log(list);
-
     list = combineOps(list);
     list = combineNums(list);
     console.log(list);
