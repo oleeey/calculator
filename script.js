@@ -36,6 +36,7 @@ $(document).ready(function() {
         
         }
 
+        output = toFixedIfNecessary(output, 4);
         $("#display").text(output);
         $("#display1").text(inputCurrent(input) + "=" + output);
     })
@@ -106,7 +107,7 @@ function combineNums(list) {
         if (typeof list[i] == "number" && typeof list[i + 1] == "number") {
             list[i] = Number(String(list[i]) + String(list[i + 1]));
             list[i + 1] = "";
-            list = list.filter(x => x != "");
+            list = list.filter(x => {return x || x === 0});
             return combineNums(list);
         }
     }
@@ -114,15 +115,25 @@ function combineNums(list) {
     return list;
 }
 
+function combineCommas(list) {
+    for (let i = 0; i < list.length; i++) {
+        if (list[i] == "." && list[i + 1] == ".") {
+            list[i + 1] = "";
+            list = list.filter(x => {return x || x === 0});
+            return combineCommas(list);
+        }
+    }
+    list = list.filter(x => {return x || x === 0});
+    return list;
+}
+
 function sortInput(list) {
-    console.log(list);
+    list = combineCommas(list);
     list = combineOps(list);
     list = combineNums(list);
-    console.log(list);
   
     for (let i = 0; i < list.length; i++) {
         if (list[i] == ".") {
-            //console.log(list[i - 1], list[i], list[i + 1])
             list[i - 1] += (list[i + 1] / (10 ** String(list[i + 1]).length));
             list[i] = "";
             list[i + 1] = "";
@@ -132,4 +143,6 @@ function sortInput(list) {
     return list;
 }
 
-
+function toFixedIfNecessary( value, dp ){
+    return +parseFloat(value).toFixed( dp );
+  }
