@@ -47,8 +47,6 @@ $(document).ready(function() {
         $("#display").text(output);
         $("#display1").text("0");
     })
-
-
 });
 
 function inputCurrent(input) {

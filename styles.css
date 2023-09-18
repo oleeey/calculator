@@ -1,27 +1,64 @@
+@import url(https://db.onlinewebfonts.com/c/ce4b0ee545ec52c2ec8cec62d23ffb09?family=Calculator);
+@import url(https://db.onlinewebfonts.com/c/a96215c9d9ddf6f69b603c331081496e?family=ISOCTEUR+V1);
+
 html, body {
     margin: 0;
     height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
+    background-color: #c2c2d6;
+}
+
+body {
+    user-select: none;
+    cursor: default;
+    display: flex;
+    flex-direction: column;
 }
 
 #calc {
-    padding: 0 10px 10px 10px;
-    background-color: gray;
+    padding: 0 5px 5px 5px;
+    background-color: black;
 }
-
-
-
 
 #divButtons {
     display: grid;
-    grid-template-columns: repeat(4, 100px);
-    grid-template-rows: repeat(5, 100px);
+    grid-template-columns: repeat(4, 80px);
+    grid-template-rows: repeat(5, 80px);
     grid-column-gap: 0px;
     grid-row-gap: 0px;
+}
 
-    border: 1px solid black;
+.allBtn {
+    background-color: #4d4d4d;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    border: none;
+    outline: 1px solid black;
+    font-family: "Calculator";
+}
+
+.allBtn:hover {
+    outline: 1px solid white;
+    color: black;
+}
+
+.ops {
+    background-color: rgb(102, 102, 102);
+}
+
+#decimal {
+    background-color: #4d4d4d;
+}
+
+#clear {
+    background-color: rgb(172, 57, 57);
+}
+
+#equals {
+    background-color: rgb(0, 68, 102);
 }
 
 #clear { grid-area: 1 / 1 / 2 / 3; }
@@ -43,20 +80,29 @@ html, body {
 #equals { grid-area: 4 / 4 / 6 / 5; }
 
 #display {
-    position: relative;
-    left: 90%;
-    margin: 40px 0 0 0px;
-    font-size: 1.6rem;
+    text-align: right;
+    margin: 10px 0px 0px 0px;
+    font-size: 2rem;
     color: white;
+    font-family: "Calculator";
 }
 
 #display1 {
-    float: right;
-    margin-right: 30px;
-    font-size: 0.9rem;
+    text-align: right;
+    margin: 10px 0px 0px 0px;
+    font-size: 1.2rem;
     color: orange;
+    font-family: "Calculator";
 }
 
-.hover {
-    border: 1px solid white;
+.author {
+    text-align: center;
+    font-family: "ISOCTEUR V1";
+    margin-top: 15px;
+}
+
+a:hover, a:visited, a:link, a:active
+{
+    text-decoration: none;
+    color: inherit;
 }
