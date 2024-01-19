@@ -1,4 +1,3 @@
-# calculator
+# Taschenrechner
 
-## todo list:
 
