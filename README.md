@@ -1,3 +1,3 @@
-# Taschenrechner
+# Rechner
 
 
